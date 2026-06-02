@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Camouflaged title and standard Google favicon matching -->
     <title>Google Docs</title>
     <link rel="icon" type="image/x-icon" href="https://ssl.gstatic.com/docs/documents/images/kix-favicon-2023q4.ico">
     <style>
@@ -61,19 +60,17 @@
 </head>
 <body>
 
-    <!-- Configuration Screen -->
     <div id="setup-container">
         <h1>Workspace Engine</h1>
         <p style="color: #5f6368; font-size: 14px; margin-bottom: 25px;">
-            Select a localized environment file (.gba) to initialize the workspace player.
+            Select a localized environment file (.sfc, .smc) to initialize the workspace player.
         </p>
         <label class="file-input-label" for="rom-file">
             Load Local File
         </label>
-        <input type="file" id="rom-file" accept=".gba">
+        <input type="file" id="rom-file" accept=".sfc,.smc">
     </div>
 
-    <!-- Emulator Target Container -->
     <div id="emulator-inside">
         <div style="width:100%; height:100%;" id="game"></div>
     </div>
@@ -104,7 +101,8 @@
                 
                 // Initialize EmulatorJS variables globally
                 window.EJS_player = '#game';
-                window.EJS_core = 'gba';
+                // CHANGED: Core switched from 'gba' to 'snes'
+                window.EJS_core = 'snes';
                 window.EJS_gameUrl = romDataUrl; // Passes the client-side data locally
                 
                 // Fetch the CDN deployment scripts for the structural engine
