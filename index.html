@@ -89,30 +89,24 @@
             const file = event.target.files[0];
             if (!file) return;
 
-            const reader = new FileReader();
+            // Create a local Object URL for fast, memory-efficient loading
+            const romObjectUrl = URL.createObjectURL(file);
             
-            // Read the file structure into a temporary local data URL
-            reader.onload = function(e) {
-                const romDataUrl = e.target.result;
-                
-                // Hide setup UI and expose emulator container
-                document.getElementById('setup-container').classList.add('hidden');
-                document.getElementById('emulator-inside').style.display = 'block';
-                
-                // Initialize EmulatorJS variables globally
-                window.EJS_player = '#game';
-                window.EJS_core = 'snes'; // Targets the Super Nintendo core engine
-                window.EJS_gameUrl = romDataUrl; // Passes the client-side data locally
-                
-                // Fetch the CDN deployment scripts for the structural engine
-                window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-                
-                const script = document.createElement('script');
-                script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-                document.body.appendChild(script);
-            };
-
-            reader.readAsDataURL(file);
+            // Hide setup UI and expose emulator container
+            document.getElementById('setup-container').classList.add('hidden');
+            document.getElementById('emulator-inside').style.display = 'block';
+            
+            // Initialize EmulatorJS variables globally
+            window.EJS_player = '#game';
+            window.EJS_core = 'snes'; // Targets the Super Nintendo core engine
+            window.EJS_gameUrl = romObjectUrl; // Passes the object URL
+            
+            // Fetch the CDN deployment scripts for the structural engine
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            
+            const script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            document.body.appendChild(script);
         });
     </script>
 </body>
